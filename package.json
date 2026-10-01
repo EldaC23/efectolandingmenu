@@ -1,0 +1,12 @@
+{
+  "name": "efectolandingmenu",
+  "private": true,
+  "description": "Landing de Menús Interactivos by Efecto Landing",
+  "scripts": {
+    "build": "tailwindcss -c tailwind.config.js -i src/input.css -o assets/css/styles.css --minify",
+    "watch": "tailwindcss -c tailwind.config.js -i src/input.css -o assets/css/styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  }
+}
