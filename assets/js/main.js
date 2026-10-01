@@ -23,6 +23,7 @@
     var show = window.scrollY > 520;
     sticky.classList.toggle('translate-y-full', !show);
     sticky.classList.toggle('pointer-events-none', !show);
+    document.body.classList.toggle('has-bar', show);
   }
   window.addEventListener('scroll', toggleSticky, { passive: true });
   toggleSticky();
