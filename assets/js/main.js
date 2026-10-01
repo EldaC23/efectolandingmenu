@@ -84,7 +84,7 @@
       if (!(prod >= 1 && prod <= 999)) return markInvalid(f.productos, 'Indica cuántos productos tiene tu menú (aproximado).');
       if (!(cat >= 1 && cat <= 50)) return markInvalid(f.categorias, 'Indica cuántas categorías tiene tu menú.');
 
-      var msg = 'Hola, quiero cotizar mi menú interactivo 🙌\n' +
+      var msg = 'Hola, quiero cotizar mi menú interactivo.\n' +
         '• Instagram: @' + ig + '\n' +
         '• WhatsApp: ' + wa + '\n' +
         '• Productos: ' + prod + '\n' +
