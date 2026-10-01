@@ -29,6 +29,9 @@
   .phone > .screen img { @apply block h-auto w-full; }
   .phone::before { content: ""; @apply absolute left-1/2 top-[11px] z-10 h-[5px] w-14 -translate-x-1/2 rounded-full bg-black/70; }
 
+  /* Celulares sobre fondo oscuro: borde dorado con resplandor para que no se pierdan */
+  .phone-gold { background: #2a231c; box-shadow: 0 0 0 2px rgba(207,168,50,.85), 0 0 34px -2px rgba(207,168,50,.38), 0 40px 80px -20px rgba(0,0,0,.9); }
+
   .grain::after {
     content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
