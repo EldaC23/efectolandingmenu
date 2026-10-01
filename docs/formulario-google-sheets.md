@@ -57,6 +57,20 @@ Cada fila nueva trae:
 | **Responder por WhatsApp** | Abre el chat con él y el mensaje de cotización listo. Solo pulsas enviar |
 | Mensaje de respuesta | El mismo texto, por si prefieres copiarlo |
 
+## Aviso por correo
+Cada cotización nueva también te llega **por correo**, con el Instagram, el WhatsApp, las 3 cotizaciones, el enlace
+para responder y el mensaje de respuesta ya armado. Así puedes verla desde la notificación del celular sin abrir la hoja.
+
+- Por defecto llega al correo de **tu propia cuenta de Google**. Para usar otro, escríbelo en `NOTIFY_EMAIL` al inicio de `Code.gs`.
+- Para desactivarlo, pon `SEND_EMAIL = false`.
+- Si el correo falla por cualquier motivo, la cotización se guarda igual en la hoja.
+
+**Al activarlo por primera vez** Google necesita un permiso nuevo (enviar correo):
+1. Pega el `Code.gs` actualizado en el editor y guarda.
+2. Elige la función **`probarCotizacion`** y pulsa **Ejecutar**. Acepta el permiso (Revisar permisos → tu cuenta → Avanzado → Ir a → Permitir).
+   Llegará un correo de prueba y se agregará una fila de ejemplo (puedes borrarla).
+3. Publica la nueva versión: **Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar**.
+
 ## Cambiar precios o el texto del mensaje
 Todo está al inicio de `Code.gs`, en la sección **CONFIGURACIÓN**: los mínimos, los $10 y $1 por categoría, el factor del Full
 y el texto del mensaje.

@@ -33,6 +33,10 @@ var MESSAGE_TEMPLATE =
   'hosting y dominio gratis y un mes de acompañamiento.\n\n' +
   '¿Cuál opción se ajusta más a lo que quieres mostrar en @{instagram}?';
 
+// Aviso por correo con cada cotización nueva (llega con el mensaje de respuesta listo para copiar).
+var SEND_EMAIL = true;
+var NOTIFY_EMAIL = '';             // Vacío = el correo de tu propia cuenta de Google. O escribe otro, por ejemplo 'tucorreo@gmail.com'.
+
 var HEADERS = ['Fecha', 'Estado', 'Instagram', 'WhatsApp', 'Productos', 'Categorías',
                'Básico', 'Mixto', 'Full', 'Perfil de Instagram', 'Responder por WhatsApp', 'Mensaje de respuesta'];
 
@@ -99,11 +103,38 @@ function doPost(e) {
       '=HYPERLINK("' + waUrl + '","Responder")',
       mensaje
     ]);
+    notificarPorCorreo_(datos, telefono, cot, mensaje, waUrl);
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   } finally {
     try { lock.releaseLock(); } catch (x) {}
+  }
+}
+
+/** Envía un aviso por correo. Si falla, no afecta: la cotización ya quedó guardada en la hoja. */
+function notificarPorCorreo_(datos, telefono, cot, mensaje, waUrl) {
+  if (!SEND_EMAIL) return;
+  try {
+    var destino = NOTIFY_EMAIL || Session.getEffectiveUser().getEmail();
+    if (!destino) return;
+    var cuerpo =
+      'Nueva solicitud de cotización\n\n' +
+      'Instagram: @' + datos.instagram + '  (https://instagram.com/' + datos.instagram + ')\n' +
+      'WhatsApp: +' + telefono + '\n' +
+      'Productos: ' + datos.productos + '  ·  Categorías: ' + datos.categorias + '\n\n' +
+      'Cotización:\n' +
+      '• Básico: $' + cot.basico + '\n' +
+      '• Mixto: $' + cot.mixto + '\n' +
+      '• Full: $' + cot.full + '\n\n' +
+      'Responder por WhatsApp (abre el chat con el mensaje listo):\n' + waUrl + '\n\n' +
+      'Mensaje de respuesta (para copiar):\n' +
+      '----------------------------------------\n' + mensaje + '\n' +
+      '----------------------------------------\n\n' +
+      'Consejo: si esa persona ya te escribió por WhatsApp, responde en ese chat.';
+    MailApp.sendEmail(destino, 'Nueva cotización: @' + datos.instagram + ' · ' + datos.productos + ' productos', cuerpo);
+  } catch (err) {
+    // sin permiso de correo o sin cuota: se ignora
   }
 }
 
