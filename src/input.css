@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-ink text-cream font-sans antialiased; }
+  h1, h2, h3 { @apply font-display; }
+  :focus-visible { outline: 2px solid #e8c968; outline-offset: 3px; border-radius: 6px; }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-6xl px-5 md:px-8; }
+  .eyebrow { @apply text-[11px] md:text-xs font-semibold uppercase tracking-[0.28em] text-gold; }
+  .eyebrow-dark { @apply text-maroon; }
+  .h2 { @apply font-display font-semibold leading-[1.08] tracking-tight text-3xl sm:text-4xl md:text-5xl; }
+  .gold-text { @apply text-gold; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-bold transition duration-200 active:scale-[0.98]; }
+  .btn-ember { @apply btn bg-ember text-white shadow-[0_10px_40px_-10px_rgba(224,36,36,0.7)] hover:bg-ember-dark hover:-translate-y-0.5; }
+  .btn-ghost { @apply btn border border-gold/40 text-gold-soft hover:bg-gold/10; }
+  .btn-ghost-dark { @apply btn border border-maroon/30 text-maroon hover:bg-maroon/5; }
+
+  /* Marco de celular */
+  .phone { @apply relative rounded-[2.2rem] bg-[#1b1613] p-[7px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.08)]; }
+  .phone > .screen { @apply overflow-hidden rounded-[1.7rem] bg-black; }
+  .phone > .screen img { @apply block h-auto w-full; }
+  .phone::before { content: ""; @apply absolute left-1/2 top-[11px] z-10 h-[5px] w-14 -translate-x-1/2 rounded-full bg-black/70; }
+
+  .grain::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Ticket con borde perforado */
+  .ticket { position: relative; }
+  .ticket::before, .ticket::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 10px;
+    background: radial-gradient(circle at 8px 0, transparent 6px, currentColor 6.5px) 0 0 / 16px 10px repeat-x;
+  }
+  .ticket::before { top: -9px; transform: scaleY(-1); }
+  .ticket::after { bottom: -9px; }
+
+  /* Reveal */
+  .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .js .reveal.d1 { transition-delay: .08s; } .js .reveal.d2 { transition-delay: .16s; } .js .reveal.d3 { transition-delay: .24s; }
+
+  /* Animación Google Sheet */
+  .sheet-wrap { container-type: inline-size; }
+  .cell-ring { position: absolute; border: 2px solid #e02424; border-radius: 3px; box-shadow: 0 0 0 4px rgba(224,36,36,.25); opacity: 0; transition: opacity .3s; }
+  .cell-ring.on { opacity: 1; }
+  .cell-new { position: absolute; background: #fff; color: #202124; font-family: Arial, sans-serif; font-size: 1.28cqw; line-height: 1; display: flex; align-items: center; opacity: 0; transition: opacity .25s; }
+  .cell-new.on { opacity: 1; }
+  .flash { animation: flash 1s ease; }
+  @keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(207,168,50,.9); } 100% { box-shadow: 0 0 0 16px rgba(207,168,50,0); } }
+  .soldout { filter: grayscale(.85); opacity: .62; }
+  .soldout .badge-out { opacity: 1; transform: none; }
+  .badge-out { opacity: 0; transform: scale(.7) rotate(-6deg); transition: .35s cubic-bezier(.3,1.6,.5,1); }
+
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-8px) rotate(var(--r,0deg)); } }
+  .floaty { animation: floaty 6s ease-in-out infinite; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .floaty { animation: none; }
+}
