@@ -71,6 +71,10 @@ para responder y el mensaje de respuesta ya armado. Así puedes verla desde la n
    Llegará un correo de prueba y se agregará una fila de ejemplo (puedes borrarla).
 3. Publica la nueva versión: **Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar**.
 
+## Qué ve el prospecto y qué ves tú
+El mensaje de respuesta le muestra **solo el Básico** como punto de partida (así la conversación se abre en vez de cerrarse con una lista de precios).
+Mixto y Full se calculan igual y quedan en la hoja y en el correo, para que los tengas a mano al seguir la conversación.
+
 ## Cambiar precios o el texto del mensaje
 Todo está al inicio de `Code.gs`, en la sección **CONFIGURACIÓN**: los mínimos, los $10 y $1 por categoría, el factor del Full
 y el texto del mensaje.
