@@ -31,7 +31,7 @@ var MESSAGE_TEMPLATE =
   '• Full Imágenes (foto en cada producto): ${full}\n\n' +
   'Todas son de pago único e incluyen carrito con envío a WhatsApp, QR en alta definición, ' +
   'hosting y dominio gratis y un mes de acompañamiento.\n\n' +
-  '¿Cuál te interesa?';
+  '¿Cuál opción se ajusta más a lo que quieres mostrar en @{instagram}?';
 
 var HEADERS = ['Fecha', 'Estado', 'Instagram', 'WhatsApp', 'Productos', 'Categorías',
                'Básico', 'Mixto', 'Full', 'Perfil de Instagram', 'Responder por WhatsApp', 'Mensaje de respuesta'];
