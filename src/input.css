@@ -43,6 +43,24 @@
   .ticket::before { top: -9px; transform: scaleY(-1); }
   .ticket::after { bottom: -9px; }
 
+
+  /* Tarjetas con borde dorado */
+  .card-gold { border: 1px solid rgba(207,168,50,.6); box-shadow: 0 0 0 1px rgba(207,168,50,.1), 0 12px 40px -18px rgba(207,168,50,.45); transition: box-shadow .3s ease, border-color .3s ease; }
+  .card-gold:hover { border-color: #e8c968; box-shadow: 0 0 0 1px rgba(232,201,104,.3), 0 18px 50px -16px rgba(207,168,50,.6); }
+
+  /* Botón flotante de WhatsApp con glow parpadeante */
+  .wa-float { position: fixed; right: 16px; bottom: 16px; z-index: 60; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 9999px; background: #25d366; color: #fff; transition: bottom .3s ease, transform .2s ease; animation: waGlow 1.8s ease-in-out infinite; }
+  .wa-float svg { width: 32px; height: 32px; }
+  .wa-float:hover { transform: scale(1.08); }
+  .wa-float::before { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid #25d366; animation: waRing 1.8s ease-out infinite; }
+  body.has-bar .wa-float { bottom: 88px; }
+  @media (min-width: 768px) { .wa-float { right: 28px; bottom: 28px; width: 66px; height: 66px; } body.has-bar .wa-float { bottom: 28px; } }
+  @keyframes waGlow {
+    0%, 100% { box-shadow: 0 0 10px 2px rgba(37,211,102,.45), 0 6px 18px rgba(0,0,0,.45); }
+    50% { box-shadow: 0 0 26px 10px rgba(37,211,102,.85), 0 6px 18px rgba(0,0,0,.45); }
+  }
+  @keyframes waRing { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
+
   /* Reveal */
   .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
   .js .reveal.in { opacity: 1; transform: none; }
@@ -74,4 +92,6 @@
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .floaty { animation: none; }
+  .wa-float, .wa-float::before { animation: none; }
+  .wa-float { box-shadow: 0 0 22px 6px rgba(37,211,102,.6); }
 }
