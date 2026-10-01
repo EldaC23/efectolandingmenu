@@ -132,10 +132,46 @@ function notificarPorCorreo_(datos, telefono, cot, mensaje, waUrl) {
       '----------------------------------------\n' + mensaje + '\n' +
       '----------------------------------------\n\n' +
       'Consejo: si esa persona ya te escribió por WhatsApp, responde en ese chat.';
-    MailApp.sendEmail(destino, 'Nueva cotización: @' + datos.instagram + ' · ' + datos.productos + ' productos', cuerpo);
+    MailApp.sendEmail({
+      to: destino,
+      subject: 'Nueva cotización: @' + datos.instagram + ' · ' + datos.productos + ' productos',
+      body: cuerpo,                                   // versión de texto, por si el correo no muestra HTML
+      htmlBody: htmlCorreo_(datos, telefono, cot, mensaje, waUrl)
+    });
   } catch (err) {
-    // sin permiso de correo o sin cuota: se ignora
+    // La cotización ya está guardada; el motivo queda en "Ejecuciones" del editor de Apps Script.
+    console.error('No se pudo enviar el correo: ' + err);
   }
+}
+
+/** Correo en formato bonito: datos, precios, botón verde para responder y el mensaje para copiar. */
+function htmlCorreo_(datos, telefono, cot, mensaje, waUrl) {
+  var fila = function (etiqueta, valor) {
+    return '<tr><td style="padding:8px 14px;border-bottom:1px solid #eee;color:#555">' + etiqueta +
+           '</td><td style="padding:8px 14px;border-bottom:1px solid #eee;text-align:right;font-weight:bold;color:#111">' + valor + '</td></tr>';
+  };
+  return '<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#222">' +
+    '<h2 style="margin:0 0 4px;color:#7b1a16">Nueva solicitud de cotización</h2>' +
+    '<p style="margin:0 0 16px;color:#666">Menús Interactivos by Efecto Landing</p>' +
+    '<p style="margin:0 0 6px"><b>Instagram:</b> <a href="https://instagram.com/' + esc_(datos.instagram) + '">@' + esc_(datos.instagram) + '</a><br>' +
+    '<b>WhatsApp:</b> +' + esc_(telefono) + '<br>' +
+    '<b>Menú:</b> ' + datos.productos + ' productos · ' + datos.categorias + ' categorías</p>' +
+    '<table style="width:100%;border-collapse:collapse;margin:16px 0;border:1px solid #eee;border-radius:8px">' +
+      fila('Básico (sin imágenes)', '$' + cot.basico) +
+      fila('Mixto (imágenes por categoría)', '$' + cot.mixto) +
+      fila('Full Imágenes', '$' + cot.full) +
+    '</table>' +
+    '<p style="text-align:center;margin:22px 0"><a href="' + esc_(waUrl) + '" ' +
+      'style="background:#25d366;color:#fff;text-decoration:none;font-weight:bold;padding:14px 26px;border-radius:10px;display:inline-block">' +
+      'Responder por WhatsApp</a></p>' +
+    '<p style="margin:0 0 6px;color:#666;font-size:13px">Mensaje de respuesta (para copiar):</p>' +
+    '<div style="background:#f6f6f6;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.5;white-space:pre-wrap">' + esc_(mensaje) + '</div>' +
+    '<p style="color:#888;font-size:12px;margin-top:16px">Si esa persona ya te escribió por WhatsApp, responde en ese chat.</p>' +
+    '</div>';
+}
+
+function esc_(t) {
+  return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function doGet() { return json_({ ok: true, servicio: 'Menús Interactivos' }); }
@@ -175,6 +211,13 @@ function prepararHoja_(ss) {
 /** Agrega una fila de prueba para ver cómo queda (puedes borrarla después). */
 function probarCotizacion() {
   doPost({ postData: { contents: JSON.stringify({ instagram: 'pizzeriaborcelle', whatsapp: '0412 1234567', productos: 40, categorias: 6 }) } });
+}
+
+/** Prueba solo el correo: si algo falla, el error aparece en el Registro de ejecución. */
+function probarCorreo() {
+  var destino = NOTIFY_EMAIL || Session.getEffectiveUser().getEmail();
+  MailApp.sendEmail(destino, 'Prueba de correo - Menús Interactivos', 'Si lees esto, el aviso por correo funciona.');
+  SpreadsheetApp.getUi().alert('Correo de prueba enviado a: ' + destino);
 }
 
 // Solo para pruebas locales con Node; en Google Apps Script esta línea no hace nada.
