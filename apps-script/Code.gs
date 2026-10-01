@@ -134,7 +134,8 @@ function notificarPorCorreo_(datos, telefono, cot, mensaje, waUrl) {
       'Consejo: si esa persona ya te escribió por WhatsApp, responde en ese chat.';
     MailApp.sendEmail(destino, 'Nueva cotización: @' + datos.instagram + ' · ' + datos.productos + ' productos', cuerpo);
   } catch (err) {
-    // sin permiso de correo o sin cuota: se ignora
+    // La cotización ya está guardada; el motivo queda en "Ejecuciones" del editor de Apps Script.
+    console.error('No se pudo enviar el correo: ' + err);
   }
 }
 
@@ -175,6 +176,13 @@ function prepararHoja_(ss) {
 /** Agrega una fila de prueba para ver cómo queda (puedes borrarla después). */
 function probarCotizacion() {
   doPost({ postData: { contents: JSON.stringify({ instagram: 'pizzeriaborcelle', whatsapp: '0412 1234567', productos: 40, categorias: 6 }) } });
+}
+
+/** Prueba solo el correo: si algo falla, el error aparece en el Registro de ejecución. */
+function probarCorreo() {
+  var destino = NOTIFY_EMAIL || Session.getEffectiveUser().getEmail();
+  MailApp.sendEmail(destino, 'Prueba de correo - Menús Interactivos', 'Si lees esto, el aviso por correo funciona.');
+  SpreadsheetApp.getUi().alert('Correo de prueba enviado a: ' + destino);
 }
 
 // Solo para pruebas locales con Node; en Google Apps Script esta línea no hace nada.
