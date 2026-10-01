@@ -56,9 +56,15 @@
   .cell-new.on { opacity: 1; }
   .flash { animation: flash 1s ease; }
   @keyframes flash { 0% { box-shadow: 0 0 0 0 rgba(207,168,50,.9); } 100% { box-shadow: 0 0 0 16px rgba(207,168,50,0); } }
-  .soldout { filter: grayscale(.85); opacity: .62; }
-  .soldout .badge-out { opacity: 1; transform: none; }
-  .badge-out { opacity: 0; transform: scale(.7) rotate(-6deg); transition: .35s cubic-bezier(.3,1.6,.5,1); }
+  /* Producto agotado: igual que en el menú real de Cory's */
+  #card-mamasita.soldout { background: #c58f7f; }
+  .pill-out { display: none; margin-left: 4px; vertical-align: 1px; border-radius: 999px; padding: 2px 6px; font-size: 8px; font-weight: 800; letter-spacing: .06em; background: rgba(123,26,22,.2); color: #7b1a16; }
+  .btn-out { display: none; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border-radius: 8px; padding: 7px 10px; font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; border: 1px solid rgba(123,26,22,.22); background: rgba(255,255,255,.16); color: rgba(123,26,22,.75); }
+  .soldout .pill-out { display: inline-block; }
+  .soldout .btn-out { display: block; }
+
+  .steps { scrollbar-width: none; }
+  .steps::-webkit-scrollbar { display: none; }
 
   @keyframes floaty { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-8px) rotate(var(--r,0deg)); } }
   .floaty { animation: floaty 6s ease-in-out infinite; }
