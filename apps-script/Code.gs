@@ -22,15 +22,13 @@ var PRICE = {
   fullFactor: 2
 };
 
-// Mensaje de respuesta. Puedes cambiar el texto; las palabras entre {llaves} se rellenan solas.
+// Mensaje de respuesta: solo muestra el Básico como punto de partida (Mixto y Full se calculan y quedan en la hoja y el correo).
+// Puedes cambiar el texto; las palabras entre {llaves} se rellenan solas (también existen {categorias}, {mixto} y {full}).
 var MESSAGE_TEMPLATE =
-  'Hola, equipo de @{instagram} 👋 Gracias por escribirnos.\n\n' +
-  'Para un menú de {productos} productos y {categorias} categorías, estas son las opciones:\n\n' +
-  '• Básico (sin imágenes): ${basico}\n' +
-  '• Mixto (imágenes por categoría): ${mixto}\n' +
-  '• Full Imágenes (foto en cada producto): ${full}\n\n' +
-  'Todas son de pago único e incluyen carrito con envío a WhatsApp, QR en alta definición, ' +
-  'hosting y dominio gratis y un mes de acompañamiento.\n\n' +
+  'Hola, equipo de @{instagram}. Gracias por escribirnos.\n\n' +
+  'Para un menú de {productos} productos, el menú básico (solo textos) quedaría en ${basico} ' +
+  '(pago único: incluye carrito con envío a WhatsApp, QR en alta definición, hosting y dominio gratis y un mes de acompañamiento).\n\n' +
+  'Tengo otras 2 modalidades con imágenes, según cómo quieras mostrar tu menú. ' +
   '¿Cuál opción se ajusta más a lo que quieres mostrar en @{instagram}?';
 
 // Aviso por correo con cada cotización nueva (llega con el mensaje de respuesta listo para copiar).

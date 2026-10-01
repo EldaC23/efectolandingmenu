@@ -42,6 +42,16 @@
       a.addEventListener('click', function (e) { e.preventDefault(); openQuote(); });
     });
 
+    // Enlace directo al formulario: .../efectolandingmenu/#cotizar (lo usan las demos)
+    function openFromHash() {
+      if (location.hash === '#cotizar') {
+        history.replaceState(null, '', location.pathname + location.search);
+        openQuote();
+      }
+    }
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+
     function cleanInstagram(raw) {
       var v = String(raw || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '');
       v = v.split(/[/?#]/)[0].replace(/^@+/, '');
