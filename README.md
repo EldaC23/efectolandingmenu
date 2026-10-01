@@ -8,7 +8,10 @@ HTML + Tailwind CSS + JavaScript plano, sin framework. Publicada con GitHub Page
 ```
 index.html            Página completa (contenido, meta tags Open Graph)
 assets/css/styles.css CSS compilado de Tailwind (se commitea, Pages lo sirve tal cual)
-assets/js/main.js     Reveal al scroll, barra fija móvil y animación de Google Sheets
+assets/js/main.js     Reveal al scroll, formulario de cotización y animación de Google Sheets
+assets/js/config.js   URL del Web App de Google para guardar las cotizaciones
+apps-script/Code.gs   Script de Google Sheets: calcula las 3 cotizaciones y arma la respuesta
+docs/                 Guía para conectar el formulario con tu hoja de Google
 assets/img/           Logo, capturas de menús, WhatsApp, testimonios y og-image.jpg
 src/input.css         Estilos propios + directivas de Tailwind
 tailwind.config.js    Colores y tipografías de la marca

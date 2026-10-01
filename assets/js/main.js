@@ -17,16 +17,90 @@
     items.forEach(function (el) { el.classList.add('in'); });
   }
 
-  /* Barra fija de WhatsApp en móvil: aparece tras el hero */
-  var sticky = document.getElementById('sticky-cta');
-  function toggleSticky() {
-    var show = window.scrollY > 520;
-    sticky.classList.toggle('translate-y-full', !show);
-    sticky.classList.toggle('pointer-events-none', !show);
-    document.body.classList.toggle('has-bar', show);
+  /* ===== Formulario de cotización ===== */
+  // URL del Web App de Google Apps Script (termina en /exec). Si está vacía, el formulario
+  // solo abre WhatsApp. Pasos en docs/formulario-google-sheets.md
+  var QUOTE_ENDPOINT = window.QUOTE_ENDPOINT || '';
+  var WA_NUMBER = '584128995687';
+
+  var dlg = document.getElementById('quote-dialog');
+  if (dlg && typeof dlg.showModal === 'function') {
+    var form = document.getElementById('quote-form');
+    var formView = document.getElementById('quote-form-view');
+    var doneView = document.getElementById('quote-done-view');
+    var errBox = document.getElementById('quote-error');
+
+    function openQuote() {
+      formView.hidden = false; doneView.hidden = true; errBox.hidden = true;
+      dlg.showModal();
+      document.body.style.overflow = 'hidden';
+    }
+    dlg.addEventListener('close', function () { document.body.style.overflow = ''; });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.querySelectorAll('[data-close]').forEach(function (b) { b.addEventListener('click', function () { dlg.close(); }); });
+    document.querySelectorAll('[data-quote]').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); openQuote(); });
+    });
+
+    function cleanInstagram(raw) {
+      var v = String(raw || '').trim().replace(/^https?:\/\/(www\.)?instagram\.com\//i, '');
+      v = v.split(/[/?#]/)[0].replace(/^@+/, '');
+      return /^[A-Za-z0-9._]{1,30}$/.test(v) ? v : '';
+    }
+    function markInvalid(input, msg) {
+      var box = input.closest('.q-field') || input;
+      box.setAttribute('aria-invalid', 'true');
+      errBox.textContent = msg; errBox.hidden = false;
+      input.focus();
+    }
+    form.addEventListener('input', function (e) {
+      var box = e.target.closest('.q-field') || e.target;
+      box.removeAttribute('aria-invalid'); errBox.hidden = true;
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      if (f.website.value) { dlg.close(); return; } // trampa para bots
+
+      var ig = cleanInstagram(f.instagram.value);
+      var wa = f.whatsapp.value.trim();
+      var waDigits = wa.replace(/\D/g, '');
+      var prod = parseInt(f.productos.value, 10);
+      var cat = parseInt(f.categorias.value, 10);
+
+      if (!ig) return markInvalid(f.instagram, 'Escribe el usuario de Instagram de tu negocio, por ejemplo: tunegocio.');
+      if (waDigits.length < 8 || waDigits.length > 15) return markInvalid(f.whatsapp, 'Revisa tu número de WhatsApp.');
+      if (!(prod >= 1 && prod <= 999)) return markInvalid(f.productos, 'Indica cuántos productos tiene tu menú (aproximado).');
+      if (!(cat >= 1 && cat <= 50)) return markInvalid(f.categorias, 'Indica cuántas categorías tiene tu menú.');
+
+      var msg = 'Hola, quiero cotizar mi menú interactivo 🙌\n' +
+        '• Instagram: @' + ig + '\n' +
+        '• WhatsApp: ' + wa + '\n' +
+        '• Productos: ' + prod + '\n' +
+        '• Categorías: ' + cat;
+      var waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+
+      // 1) Abrir WhatsApp (dentro del gesto del usuario para que no lo bloqueen)
+      var win = window.open(waUrl, '_blank');
+      document.getElementById('quote-wa-link').href = waUrl;
+
+      // 2) Guardar en la hoja de Google (si está configurada)
+      if (QUOTE_ENDPOINT) {
+        try {
+          fetch(QUOTE_ENDPOINT, {
+            method: 'POST', mode: 'no-cors', keepalive: true,
+            body: JSON.stringify({ instagram: ig, whatsapp: wa, productos: prod, categorias: cat, origen: location.href })
+          }).catch(function () {});
+        } catch (err) { /* el pedido por WhatsApp ya salió */ }
+      }
+
+      // 3) Confirmación
+      formView.hidden = true; doneView.hidden = false;
+      form.reset();
+      if (!win) doneView.querySelector('p').textContent = 'Pulsa el botón para abrir WhatsApp con tu mensaje y enviarlo. Te respondo con tu cotización.';
+    });
   }
-  window.addEventListener('scroll', toggleSticky, { passive: true });
-  toggleSticky();
 
   /* Demo Google Sheets -> menú */
   var demo = document.getElementById('sheet-demo');

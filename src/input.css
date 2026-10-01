@@ -53,13 +53,37 @@
   .wa-float svg { width: 32px; height: 32px; }
   .wa-float:hover { transform: scale(1.08); }
   .wa-float::before { content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid #25d366; animation: waRing 1.8s ease-out infinite; }
-  body.has-bar .wa-float { bottom: 88px; }
-  @media (min-width: 768px) { .wa-float { right: 28px; bottom: 28px; width: 66px; height: 66px; } body.has-bar .wa-float { bottom: 28px; } }
+  @media (min-width: 768px) { .wa-float { right: 28px; bottom: 28px; width: 66px; height: 66px; } }
   @keyframes waGlow {
     0%, 100% { box-shadow: 0 0 10px 2px rgba(37,211,102,.45), 0 6px 18px rgba(0,0,0,.45); }
     50% { box-shadow: 0 0 26px 10px rgba(37,211,102,.85), 0 6px 18px rgba(0,0,0,.45); }
   }
   @keyframes waRing { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.7); opacity: 0; } }
+
+
+  /* Formulario de cotización */
+  [hidden] { display: none !important; }
+  .quote-dialog { border: 0; padding: 0; background: transparent; color: #f5eddd; width: calc(100% - 24px); max-width: 460px; max-height: calc(100dvh - 24px); overflow: visible; }
+  .quote-dialog::backdrop { background: rgba(5,4,3,.8); backdrop-filter: blur(4px); }
+  .quote-dialog[open] { animation: qIn .28s ease; }
+  @keyframes qIn { from { opacity: 0; transform: translateY(16px) scale(.98); } to { opacity: 1; transform: none; } }
+  .quote-card { position: relative; border-radius: 1.5rem; background: linear-gradient(180deg, #1b1612, #0f0d0b); padding: 1.9rem 1.25rem 1.25rem; max-height: calc(100dvh - 24px); overflow-y: auto; }
+  @media (min-width: 640px) { .quote-card { padding: 2.25rem 2rem 1.75rem; } }
+  .quote-close { position: absolute; right: 12px; top: 12px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9999px; color: rgba(245,237,221,.7); transition: background .2s; }
+  .quote-close:hover { background: rgba(255,255,255,.08); color: #fff; }
+  .q-label { display: block; margin-bottom: 6px; font-size: .875rem; font-weight: 600; color: rgba(245,237,221,.85); }
+  .q-input, .q-field { width: 100%; height: 52px; border-radius: .85rem; border: 1px solid rgba(207,168,50,.4); background: #0a0908; color: #f5eddd; font-size: 16px; transition: border-color .2s, box-shadow .2s; }
+  .q-input { padding: 0 14px; }
+  .q-field { display: flex; align-items: center; padding-left: 14px; }
+  .q-field span { color: #cfa832; font-weight: 700; margin-right: 4px; }
+  .q-field input { flex: 1; min-width: 0; height: 100%; background: transparent; border: 0; outline: 0; color: inherit; font-size: 16px; padding-right: 14px; }
+  .q-input:focus, .q-field:focus-within { outline: 0; border-color: #e8c968; box-shadow: 0 0 0 3px rgba(232,201,104,.18); }
+  .q-input::placeholder, .q-field input::placeholder { color: rgba(245,237,221,.3); }
+  .q-input[aria-invalid="true"], .q-field[aria-invalid="true"] { border-color: #e02424; box-shadow: 0 0 0 3px rgba(224,36,36,.2); }
+  .q-input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+  .q-input[type="number"]::-webkit-outer-spin-button, .q-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .q-error { border-radius: .75rem; border: 1px solid rgba(224,36,36,.5); background: rgba(224,36,36,.1); padding: 10px 12px; font-size: .875rem; color: #ffb4b4; }
+  .q-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 
   /* Reveal */
   .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
