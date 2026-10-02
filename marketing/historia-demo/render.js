@@ -9,7 +9,7 @@ const modo=process.argv[2]||'full', out=process.env.OUT, fr=process.env.FRAMES;
   await p.goto('file://'+path.join(__dirname,'escena.html'),{waitUntil:'networkidle'}).catch(()=>{});
   await p.evaluate(()=>document.fonts.ready); await p.waitForTimeout(700);
   const total=await p.evaluate(()=>window.TOTAL), n=fs.readdirSync(fr).filter(f=>f.endsWith('.jpg')).length;
-  const tiempos = modo==='preview' ? [1.4,3.8,6.0,9.0,12.5,16.0,18.5,22.0] : Array.from({length:Math.round(total*30)},(_,i)=>i/30);
+  const tiempos = modo==='preview' ? [3.6,5.6,8.4,10.4,13.0,15.4,16.8,18.0] : Array.from({length:Math.round(total*30)},(_,i)=>i/30);
   for (let i=0;i<tiempos.length;i++){
     const t=tiempos[i], k=Math.min(n,Math.max(1,Math.floor((t-3.0)*30)+1));
     await p.evaluate(async f=>{const im=document.getElementById('foto'); im.src=f; await im.decode();}, 'file://'+path.join(fr,`f${String(k).padStart(4,'0')}.jpg`));

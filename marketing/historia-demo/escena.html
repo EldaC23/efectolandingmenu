@@ -16,17 +16,17 @@ body{font-family:'DM Sans',sans-serif;color:#f5eddd}
 #brand span{font-size:9px;letter-spacing:.24em;color:#cfa832;text-transform:uppercase}
 #hook{top:300px;text-align:center;padding:0 34px;font-family:'Playfair Display',serif;font-weight:600;font-size:46px;line-height:1.12}
 #hook em{color:#cfa832}
-#bars{top:118px;display:flex;justify-content:center;gap:8px}
+#bars{top:108px;display:flex;justify-content:center;gap:8px}
 #bars i{display:block;width:62px;height:4px;border-radius:4px;background:rgba(245,237,221,.18);overflow:hidden}
 #bars u{display:block;height:100%;width:0;background:#cfa832}
-.head{top:138px;text-align:center;padding:0 30px}
+.head{top:124px;text-align:center;padding:0 30px}
 .head .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#cfa832;color:#0a0908;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;margin-bottom:8px}
-.head h3{font-family:'Playfair Display',serif;font-weight:600;font-size:29px;line-height:1.1}
-.head p{margin-top:6px;font-size:14.5px;color:rgba(245,237,221,.72)}
-#phoneWrap{top:256px;display:flex;justify-content:center}
-.phone{width:244px;border-radius:34px;padding:7px;background:#2a231c;box-shadow:0 0 0 2px rgba(207,168,50,.85),0 0 36px rgba(207,168,50,.32),0 30px 60px rgba(0,0,0,.7)}
-.phone .scr{border-radius:28px;overflow:hidden;background:#000}
-.phone img{display:block;width:100%;aspect-ratio:390/844;object-fit:cover}
+.head h3{font-family:'Playfair Display',serif;font-weight:600;font-size:31px;line-height:1.1}
+.head p{margin-top:6px;font-size:16px;color:rgba(245,237,221,.78)}
+#phoneWrap{top:236px;display:flex;justify-content:center}
+.phone{width:354px;border-radius:34px;padding:7px;background:#2a231c;box-shadow:0 0 0 2px rgba(207,168,50,.85),0 0 36px rgba(207,168,50,.32),0 30px 60px rgba(0,0,0,.7)}
+.phone .scr{border-radius:28px;overflow:hidden;background:#000;position:relative;width:340px;height:520px}
+.phone img{position:absolute;left:0;top:0;width:340px;height:auto;display:block;will-change:transform}
 #end{top:210px;text-align:center;padding:0 28px;opacity:0}
 #end img{height:84px;margin-bottom:18px}
 #end h2{font-family:'Playfair Display',serif;font-weight:600;font-size:42px;line-height:1.1}
@@ -71,10 +71,20 @@ const heads=[...document.querySelectorAll('.head')], bars=[...document.querySele
 // línea de tiempo (s): gancho 0-3 · demo 3-18.25 (grabación real) · cierre 18.75-23.4
 const IN=3.0, DUR=15.25, CUTS=[0,1.67,7.41,11.7], OUT=IN+DUR;
 window.TOTAL=23.4; window.IN=IN; window.DUR=DUR;
+const ESC=340/390;                       // escala de la grabación dentro del celular
+function camY(L){                         // posición vertical de la "cámara" sobre la grabación (px de la demo)
+  const lp=(a,b,k)=>a+(b-a)*ease(clamp(k));
+  if(L<1.0) return 0;                    // se ve el encabezado de Borcelle
+  if(L<1.7) return lp(0,248,(L-1.0)/0.7);// baja a las pizzas y la barra del total
+  if(L<11.8) return 248;
+  if(L<12.5) return lp(248,150,(L-11.8)/0.7); // sube para ver la ventana final
+  return 150;
+}
 function render(t){
   const hOpa=seg(t,0.3,1.0)*(1-seg(t,2.6,3.1));
   $('hook').style.opacity=hOpa; $('hook').style.transform=`translateY(${(1-seg(t,0.3,1.0))*16}px)`;
   const demoIn=seg(t,IN,IN+0.6), demoOut=1-seg(t,OUT,OUT+0.5), demo=demoIn*demoOut;
+  $('foto').style.transform=`translateY(${-camY(clamp(t-IN,0,DUR))*ESC}px)`;
   $('phoneWrap').style.opacity=demo; $('phoneWrap').style.transform=`translateY(${(1-demoIn)*24}px)`;
   $('bars').style.opacity=demo;
   const L=t-IN;
