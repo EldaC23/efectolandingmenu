@@ -165,49 +165,39 @@
     <div class="mx-auto max-w-3xl text-center">
       <p class="eyebrow reveal">Cómo funciona</p>
       <h2 class="h2 reveal d1 mt-4">Tan fácil que tu cliente <span class="text-gold">no necesita explicación.</span></h2>
-      <p class="reveal d2 mt-5 text-lg text-cream/70">Así lo ve tu cliente, paso a paso. Capturas reales de un negocio que ya lo usa.</p>
+      <p class="reveal d2 mt-5 text-lg text-cream/70">Míralo en acción: así pide tu cliente, paso a paso.</p>
     </div>
 
-    <ol class="steps -mx-5 mt-14 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:px-0">
-      <!-- Paso 1 -->
-      <li class="reveal flex w-[72vw] max-w-[270px] shrink-0 snap-center flex-col md:w-auto md:max-w-none">
-        <span class="grid h-9 w-9 place-items-center rounded-full bg-gold font-display text-base font-bold text-ink md:h-10 md:w-10 md:text-lg">1</span>
-        <h3 class="mt-3 text-lg font-semibold leading-snug md:mt-4 md:text-xl">Escanea o abre el link</h3>
-        <p class="mt-1 text-sm text-cream/65 md:text-base">Desde el QR en la mesa, tu WhatsApp o tu Instagram. Sin descargar nada.</p>
-        <div class="mt-4 grid min-h-[190px] flex-1 place-items-center rounded-3xl bg-gradient-to-b from-gold/[0.10] to-coal p-6 text-center md:mt-5 md:min-h-[300px] card-gold">
-          <div>
-            <svg class="mx-auto h-24 w-24 text-gold"><use href="#i-qr"/></svg>
-            <p class="mt-5 text-sm font-semibold uppercase tracking-widest text-gold-soft">QR en mesa</p>
-            <p class="mt-1 text-sm text-cream/60">o link por WhatsApp e Instagram</p>
-          </div>
-        </div>
-      </li>
-      <!-- Paso 2 -->
-      <li class="reveal d1 flex w-[72vw] max-w-[270px] shrink-0 snap-center flex-col md:w-auto md:max-w-none">
-        <span class="grid h-9 w-9 place-items-center rounded-full bg-gold font-display text-base font-bold text-ink md:h-10 md:w-10 md:text-lg">2</span>
-        <h3 class="mt-3 text-lg font-semibold leading-snug md:mt-4 md:text-xl">Navega, elige y personaliza</h3>
-        <p class="mt-1 text-sm text-cream/65 md:text-base">Categorías, buscador y opciones como "sin tomate" o "sin mostaza".</p>
-        <div class="mt-4 flex flex-1 items-start justify-center md:mt-5"><div class="phone phone-gold w-full max-w-[165px] md:max-w-[250px]"><div class="screen"><img src="assets/img/menu-corys.webp" width="540" height="1112" alt="Paso 2: el cliente navega el menú, elige productos y los personaliza" loading="lazy"></div></div></div>
-      </li>
-      <!-- Paso 3 -->
-      <li class="reveal d2 flex w-[72vw] max-w-[270px] shrink-0 snap-center flex-col md:w-auto md:max-w-none">
-        <span class="grid h-9 w-9 place-items-center rounded-full bg-gold font-display text-base font-bold text-ink md:h-10 md:w-10 md:text-lg">3</span>
-        <h3 class="mt-3 text-lg font-semibold leading-snug md:mt-4 md:text-xl">Revisa su pedido y el total</h3>
-        <p class="mt-1 text-sm text-cream/65 md:text-base">El carrito calcula el total, el cliente revisa su pedido y confirma.</p>
-        <div class="mt-4 flex flex-1 items-start justify-center md:mt-5"><div class="phone phone-gold w-full max-w-[165px] md:max-w-[250px]"><div class="screen"><img src="assets/img/pedido-carrito.webp" width="540" height="1042" alt="Paso 3: pantalla Tu pedido con productos, nombre del cliente, total estimado y botón Confirmar pedido por WhatsApp" loading="lazy"></div></div></div>
-      </li>
-      <!-- Paso 4 -->
-      <li class="reveal d3 flex w-[72vw] max-w-[270px] shrink-0 snap-center flex-col md:w-auto md:max-w-none">
-        <span class="grid h-9 w-9 place-items-center rounded-full bg-gold font-display text-base font-bold text-ink md:h-10 md:w-10 md:text-lg">4</span>
-        <h3 class="mt-3 text-lg font-semibold leading-snug md:mt-4 md:text-xl">Te llega a WhatsApp, ya armado</h3>
-        <p class="mt-1 text-sm text-cream/65 md:text-base">Un solo mensaje con productos y total. Recibes el pedido ya organizado en WhatsApp.</p>
-        <div class="mt-4 flex flex-1 flex-col items-center justify-center gap-3 rounded-3xl md:mt-5 bg-gold/[0.06] p-3 card-gold">
-          <div class="overflow-hidden rounded-2xl shadow-[0_20px_50px_-15px_rgba(0,0,0,0.9)]"><img src="assets/img/pedido-whatsapp.webp" width="540" height="372" alt="Paso 4: mensaje de WhatsApp con el pedido armado, total estimado y nota de delivery" loading="lazy"></div>
-          <p class="text-center text-xs text-cream/50">Mensaje real. Nombre del cliente difuminado.</p>
-        </div>
-      </li>
-    </ol>
-    <p class="mt-2 text-center text-xs text-cream/45 md:hidden">Desliza para ver los pasos →</p>
+    <div class="mt-12 grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <div class="reveal mx-auto w-[240px] sm:w-[270px]">
+        <div class="phone phone-gold"><div class="screen">
+          <video id="pasos-video" class="block h-auto w-full" style="aspect-ratio:540/1168" poster="assets/img/pasos-poster.webp" muted loop playsinline preload="none" aria-label="Demostración: un cliente elige una pizza, la personaliza, revisa su pedido y lo envía">
+            <source src="assets/video/pasos.mp4" type="video/mp4">
+            <source src="assets/video/pasos.webm" type="video/webm">
+          </video>
+        </div></div>
+        <p class="mt-4 text-center text-xs text-cream/50">Demo de Pizzería Borcelle. Al confirmar el pedido no se envía a nadie.</p>
+      </div>
+
+      <ol id="pasos-lista" class="space-y-3" data-cortes="[0, 1.67, 7.41, 11.7]">
+        <li class="paso reveal flex gap-4 rounded-2xl border border-white/10 bg-coal p-5">
+          <span class="num grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-lg font-bold">1</span>
+          <div><h3 class="text-lg font-semibold leading-snug md:text-xl">Escanea o abre el link</h3><p class="mt-1 text-sm text-cream/70 md:text-base">Desde el QR en la mesa, tu WhatsApp o tu Instagram. Sin descargar nada.</p></div>
+        </li>
+        <li class="paso reveal d1 flex gap-4 rounded-2xl border border-white/10 bg-coal p-5">
+          <span class="num grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-lg font-bold">2</span>
+          <div><h3 class="text-lg font-semibold leading-snug md:text-xl">Navega, elige y personaliza</h3><p class="mt-1 text-sm text-cream/70 md:text-base">Categorías, buscador y opciones como “sin orégano” o “sin cebolla”.</p></div>
+        </li>
+        <li class="paso reveal d2 flex gap-4 rounded-2xl border border-white/10 bg-coal p-5">
+          <span class="num grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-lg font-bold">3</span>
+          <div><h3 class="text-lg font-semibold leading-snug md:text-xl">Revisa su pedido y el total</h3><p class="mt-1 text-sm text-cream/70 md:text-base">El carrito calcula el total, el cliente revisa su pedido y confirma.</p></div>
+        </li>
+        <li class="paso reveal d3 flex gap-4 rounded-2xl border border-white/10 bg-coal p-5">
+          <span class="num grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-lg font-bold">4</span>
+          <div><h3 class="text-lg font-semibold leading-snug md:text-xl">Te llega a WhatsApp, ya armado</h3><p class="mt-1 text-sm text-cream/70 md:text-base">Un solo mensaje con productos y total. Recibes el pedido ya organizado en WhatsApp.</p></div>
+        </li>
+      </ol>
+    </div>
   </div>
 </section>
 
