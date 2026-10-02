@@ -1,0 +1,103 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<title>Historia: demo de Pizzería Borcelle</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;background:#0a0908;overflow:hidden}
+body{font-family:'DM Sans',sans-serif;color:#f5eddd}
+#stage{position:relative;width:540px;height:960px;overflow:hidden;background:#0a0908}
+.glow{position:absolute;border-radius:50%;filter:blur(70px)}
+.g1{left:-120px;top:-80px;width:420px;height:360px;background:rgba(207,168,50,.20)}
+.g2{right:-140px;bottom:-60px;width:380px;height:340px;background:rgba(224,36,36,.16)}
+.abs{position:absolute;left:0;right:0}
+#brand{top:44px;display:flex;justify-content:center;align-items:center;gap:10px}
+#brand img{height:34px}
+#brand b{font-family:'Playfair Display',serif;font-weight:600;font-size:15px;display:block;line-height:1.1}
+#brand span{font-size:9px;letter-spacing:.24em;color:#cfa832;text-transform:uppercase}
+#hook{top:300px;text-align:center;padding:0 34px;font-family:'Playfair Display',serif;font-weight:600;font-size:46px;line-height:1.12}
+#hook em{color:#cfa832}
+#bars{top:108px;display:flex;justify-content:center;gap:8px}
+#bars i{display:block;width:62px;height:4px;border-radius:4px;background:rgba(245,237,221,.18);overflow:hidden}
+#bars u{display:block;height:100%;width:0;background:#cfa832}
+.head{top:124px;text-align:center;padding:0 30px}
+.head .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#cfa832;color:#0a0908;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.head h3{font-family:'Playfair Display',serif;font-weight:600;font-size:31px;line-height:1.1}
+.head p{margin-top:6px;font-size:16px;color:rgba(245,237,221,.78)}
+#phoneWrap{top:236px;display:flex;justify-content:center}
+.phone{width:354px;border-radius:34px;padding:7px;background:#2a231c;box-shadow:0 0 0 2px rgba(207,168,50,.85),0 0 36px rgba(207,168,50,.32),0 30px 60px rgba(0,0,0,.7)}
+.phone .scr{border-radius:28px;overflow:hidden;background:#000;position:relative;width:340px;height:520px}
+.phone img{position:absolute;left:0;top:0;width:340px;height:auto;display:block;will-change:transform}
+#end{top:210px;text-align:center;padding:0 28px;opacity:0}
+#end img{height:84px;margin-bottom:18px}
+#end h2{font-family:'Playfair Display',serif;font-weight:600;font-size:42px;line-height:1.1}
+#end h2 em{color:#cfa832}
+#end .s{margin-top:12px;font-size:17px;color:rgba(245,237,221,.75)}
+#pill{margin:38px auto 0;display:flex;align-items:center;justify-content:space-between;gap:12px;width:462px;height:78px;padding:0 14px 0 22px;border-radius:20px;background:rgba(207,168,50,.10);border:2px solid rgba(207,168,50,.85);box-shadow:0 0 34px rgba(207,168,50,.25)}
+#pill span{font-size:19px;font-weight:700;text-align:left;line-height:1.2}
+#pill span em{display:block;font-style:normal;font-weight:500;font-size:14px;color:rgba(245,237,221,.7);margin-top:2px}
+#arrow{flex:none;width:52px;height:52px;border-radius:50%;background:#cfa832;color:#0a0908;display:grid;place-items:center}
+#arrow svg{width:28px;height:28px}
+#foot{margin-top:44px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#cfa832}
+</style></head><body>
+<div id="stage">
+ <div class="glow g1"></div><div class="glow g2"></div>
+ <div id="brand" class="abs"><img src="../../assets/img/logo.png" alt=""><div><b>Menús Interactivos</b><span>by Efecto Landing</span></div></div>
+ <div id="hook" class="abs" style="opacity:0">Tu menú,<br>en una experiencia<br><em>simple y rápida</em></div>
+ <div id="bars" class="abs" style="opacity:0"><i><u></u></i><i><u></u></i><i><u></u></i><i><u></u></i></div>
+
+ <div class="abs head" data-i="0"><div class="n">1</div><h3>Escanea o abre el link</h3><p>Desde el QR en la mesa, tu WhatsApp o tu Instagram.</p></div>
+ <div class="abs head" data-i="1"><div class="n">2</div><h3>Navega, elige y personaliza</h3><p>Categorías, buscador y opciones como “sin orégano”.</p></div>
+ <div class="abs head" data-i="2"><div class="n">3</div><h3>Revisa su pedido y el total</h3><p>El carrito calcula el total y el cliente confirma.</p></div>
+ <div class="abs head" data-i="3"><div class="n">4</div><h3>Te llega a WhatsApp, ya armado</h3><p>Recibes el pedido ya organizado en WhatsApp.</p></div>
+
+ <div id="phoneWrap" class="abs" style="opacity:0"><div class="phone"><div class="scr"><img id="foto" alt=""></div></div></div>
+
+ <div id="end" class="abs">
+  <img src="../../assets/img/logo.png" alt="">
+  <h2>Cotiza <em>tu menú.</em></h2>
+  <div class="s">Ten el control, sin depender de nadie.</div>
+  <div id="pill"><span>Pulsa el enlace<em>está en mi siguiente estado</em></span>
+   <div id="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></div></div>
+  <div id="foot">Menús Interactivos by Efecto Landing</div>
+ </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const ease=x=>1-Math.pow(1-x,3);
+const seg=(t,a,b)=>ease(clamp((t-a)/(b-a)));
+const lerp=(a,b,k)=>a+(b-a)*k;
+const heads=[...document.querySelectorAll('.head')], bars=[...document.querySelectorAll('#bars u')];
+// línea de tiempo (s): gancho 0-3 · demo 3-18.25 (grabación real) · cierre 18.75-23.4
+const IN=3.0, DUR=15.25, CUTS=[0,1.67,7.41,11.7], OUT=IN+DUR;
+window.TOTAL=23.4; window.IN=IN; window.DUR=DUR;
+const ESC=340/390;                       // escala de la grabación dentro del celular
+function camY(L){                         // posición vertical de la "cámara" sobre la grabación (px de la demo)
+  const lp=(a,b,k)=>a+(b-a)*ease(clamp(k));
+  if(L<1.0) return 0;                    // se ve el encabezado de Borcelle
+  if(L<1.7) return lp(0,248,(L-1.0)/0.7);// baja a las pizzas y la barra del total
+  if(L<11.8) return 248;
+  if(L<12.5) return lp(248,150,(L-11.8)/0.7); // sube para ver la ventana final
+  return 150;
+}
+function render(t){
+  const hOpa=seg(t,0.3,1.0)*(1-seg(t,2.6,3.1));
+  $('hook').style.opacity=hOpa; $('hook').style.transform=`translateY(${(1-seg(t,0.3,1.0))*16}px)`;
+  const demoIn=seg(t,IN,IN+0.6), demoOut=1-seg(t,OUT,OUT+0.5), demo=demoIn*demoOut;
+  $('foto').style.transform=`translateY(${-camY(clamp(t-IN,0,DUR))*ESC}px)`;
+  $('phoneWrap').style.opacity=demo; $('phoneWrap').style.transform=`translateY(${(1-demoIn)*24}px)`;
+  $('bars').style.opacity=demo;
+  const L=t-IN;
+  bars.forEach((u,i)=>{const a=CUTS[i], b=(i<3?CUTS[i+1]:DUR); u.style.width=(clamp((L-a)/(b-a))*100)+'%'});
+  heads.forEach((el,i)=>{
+    const a=IN+CUTS[i], b=IN+(i<3?CUTS[i+1]:DUR);
+    const inn=seg(t,a,a+0.45), out=(i<3)?1-seg(t,b-0.35,b):demoOut;
+    el.style.opacity=(i===0?demoIn:inn)*out; el.style.transform=`translateY(${(1-(i===0?demoIn:inn))*14}px)`;
+  });
+  $('brand').style.opacity=1-seg(t,OUT+0.1,OUT+0.4);
+  const e=seg(t,OUT+0.6,OUT+1.3); $('end').style.opacity=e; $('end').style.transform=`translateY(${(1-e)*18}px)`;
+  const T2=OUT+1.8, mv=t>T2?(Math.sin((t-T2)*5)*0.5+0.5)*10:0;
+  $('arrow').style.transform=`translateX(${mv}px)`; $('pill').style.transform=`scale(${t>T2?1+0.012*Math.sin((t-T2)*5):1})`;
+}
+window.render=render; render(0);
+</script></body></html>
