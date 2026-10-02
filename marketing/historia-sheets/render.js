@@ -1,5 +1,5 @@
 // Uso: node render.js [preview|full]
-// Genera los cuadros (30 fps, 10 s) de escena.html en 1080x1920 y los junta con ffmpeg en historia-sheets.mp4
+// Genera los cuadros (30 fps, 18 s) de escena.html en 1080x1920 y los junta con ffmpeg en historia-sheets.mp4
 const { chromium } = require('playwright'); const fs=require('fs'), path=require('path'), {execSync}=require('child_process');
 const modo=process.argv[2]||'full', out=process.env.OUT||path.join(__dirname,'frames');
 (async()=>{
@@ -8,7 +8,7 @@ const modo=process.argv[2]||'full', out=process.env.OUT||path.join(__dirname,'fr
   const p=await b.newPage({viewport:{width:540,height:960},deviceScaleFactor:2,ignoreHTTPSErrors:true});
   await p.goto('file://'+path.join(__dirname,'escena.html'),{waitUntil:'networkidle'}).catch(()=>{});
   await p.evaluate(()=>document.fonts.ready); await p.waitForTimeout(700);
-  const tiempos = modo==='preview' ? [0.6,1.6,2.7,3.9,4.9,6.2,7.0,9.2] : Array.from({length:300},(_,i)=>i/30);
+  const tiempos = modo==='preview' ? [1.0,3.0,5.2,7.0,9.4,11.2,13.0,16.8] : Array.from({length:540},(_,i)=>i/30);
   for (let i=0;i<tiempos.length;i++){
     await p.evaluate(t=>render(t),tiempos[i]);
     const f=modo==='preview'?`prev${i}.jpg`:`f${String(i).padStart(4,'0')}.jpg`;

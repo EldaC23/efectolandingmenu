@@ -53,7 +53,7 @@ td.r{text-align:right}
  <div id="brand" class="abs"><img src="../../assets/img/logo.png" alt=""><div><b>Menús Interactivos</b><span>by Efecto Landing</span></div></div>
 
  <div id="hookA" class="abs hook"><span class="l" id="ha">¿Cambió un precio?</span><span class="l" id="hb"><em>¿Se agotó un producto?</em></span></div>
- <div id="hookB" class="abs hook" style="opacity:0">Tú mismo,<br><em>desde tu celular.</em></div>
+ <div id="hookB" class="abs hook" style="opacity:0;font-size:40px">Tú mismo,<br><em>desde tu celular.</em></div>
 
  <div id="sheet" style="opacity:0">
   <div class="bar"><s style="background:#ff5f57"></s><s style="background:#febc2e"></s><s style="background:#28c840"></s><span style="margin-left:8px">MenuCorys · Google Sheets</span></div>
@@ -99,53 +99,54 @@ function center(el){const s=$('stage').getBoundingClientRect(),r=el.getBoundingC
 function init(){ $('sheet').style.opacity=1; pos.P=center($('cP')); pos.D=center($('cD')); $('sheet').style.opacity=0; }
 function render(t){
   if(!pos.P) init();
+  // ----- línea de tiempo: 18 s -----
+  const endOut=1-seg(t,14.6,15.0);
   // gancho
-  const ha=seg(t,0.25,0.7), hb=seg(t,1.0,1.45);
+  const ha=seg(t,0.3,0.9), hb=seg(t,1.6,2.2);
   $('ha').style.opacity=ha; $('ha').style.transform=`translateY(${(1-ha)*14}px)`;
   $('hb').style.opacity=hb; $('hb').style.transform=`translateY(${(1-hb)*14}px)`;
-  const toB=seg(t,6.1,6.6);
-  const endOut=1-seg(t,7.5,7.9);
+  const toB=seg(t,11.5,12.0), inB=seg(t,12.0,12.6);
   $('hookA').style.opacity=(1-toB)*endOut;
-  $('hookB').style.opacity=seg(t,6.5,7.0)*endOut;
-  $('hookB').style.transform=`translateY(${(1-seg(t,6.5,7.0))*12}px)`;
-  // hoja y celular
-  const s=seg(t,0.9,1.45); $('sheet').style.opacity=s*endOut; $('sheet').style.transform=`translateY(${(1-s)*26}px)`;
-  const p=seg(t,1.4,1.95); $('phone').style.opacity=p*endOut; $('lab').style.opacity=p*endOut; $('phone').style.transform=`translateY(${(1-p)*26}px)`;
-  // precio
-  const typedP="8.40"; let nP=0;
-  const editP=t>=2.1&&t<3.3;
-  if(t<2.1) $('tP').textContent='7.80';
-  else if(t<3.3){ nP=Math.floor(clamp((t-2.35)/0.6)*4.999); $('tP').innerHTML=typedP.slice(0,nP)+'<span class="caret"></span>'; }
+  $('hookB').style.opacity=inB*endOut;
+  $('hookB').style.transform=`translateY(${(1-inB)*12}px) scale(${lerp(.96,1,inB)})`;
+  // hoja y celular (se atenúan mientras se lee "desde tu celular")
+  const dim=1-0.5*inB;
+  const s=seg(t,2.0,2.7), p=seg(t,2.8,3.4);
+  $('sheet').style.opacity=s*endOut*dim; $('sheet').style.transform=`translateY(${(1-s)*26}px)`;
+  $('phone').style.opacity=p*endOut*dim; $('lab').style.opacity=p*endOut*dim; $('phone').style.transform=`translateY(${(1-p)*26}px)`;
+  // precio (hoja)
+  const typedP="8.40";
+  if(t<4.8) $('tP').textContent='7.80';
+  else if(t<6.2){ const nP=Math.floor(clamp((t-5.0)/0.8)*4.999); $('tP').innerHTML=typedP.slice(0,nP)+'<span class="caret"></span>'; }
   else $('tP').textContent=typedP;
-  $('rP').style.opacity=editP?seg(t,2.0,2.15):0;
-  // menu: precio Catira
-  const showNew=t>=3.5;
+  $('rP').style.opacity=(t>=4.4&&t<6.2)?seg(t,4.4,4.55):0;
+  // precio (menú)
+  const showNew=t>=6.4;
   $('mP').textContent=showNew?'$8.40':'$7.80';
-  const fl=clamp((t-3.5)/0.7); $('mP').style.boxShadow=(showNew&&fl<1)?`0 0 0 ${fl*14}px rgba(207,168,50,${0.9*(1-fl)})`:'none';
+  const fl=clamp((t-6.4)/0.9);
+  $('mP').style.boxShadow=(showNew&&fl<1)?`0 0 0 ${fl*14}px rgba(207,168,50,${0.9*(1-fl)})`:'none';
   $('mP').style.background=(showNew&&fl<1)?`rgba(207,168,50,${0.35*(1-fl)})`:'transparent';
-  // disponible
-  const editD=t>=4.3&&t<5.8;
-  if(t<4.3) $('tD').textContent='si';
-  else if(t<5.8){ const nD=Math.floor(clamp((t-4.7)/0.35)*2.999); $('tD').innerHTML='no'.slice(0,nD)+'<span class="caret"></span>'; }
+  // disponible (hoja)
+  if(t<8.7) $('tD').textContent='si';
+  else if(t<10.2){ const nD=Math.floor(clamp((t-9.0)/0.5)*2.999); $('tD').innerHTML='no'.slice(0,nD)+'<span class="caret"></span>'; }
   else $('tD').textContent='no';
-  $('rD').style.opacity=editD?seg(t,4.2,4.35):0;
-  // menu: agotado
-  const k=seg(t,5.95,6.3);
+  $('rD').style.opacity=(t>=8.3&&t<10.2)?seg(t,8.3,8.45):0;
+  // agotado (menú)
+  const k=seg(t,10.3,10.8);
   $('mM').style.background=mix([251,246,234],[197,143,127],k);
-  $('pill').style.opacity=k; $('bo').style.opacity=k;
-  $('bo').style.transform=`scale(${lerp(.75,1,k)})`;
+  $('pill').style.opacity=k; $('bo').style.opacity=k; $('bo').style.transform=`scale(${lerp(.75,1,k)})`;
   // cursor
   const cur=$('cursor');
-  const toP=seg(t,1.4,2.0), toD=seg(t,3.7,4.3);
+  const toP=seg(t,3.5,4.4), toD=seg(t,7.5,8.3);
   let x=lerp(470,pos.P.x+6,toP), y=lerp(620,pos.P.y+8,toP);
   x=lerp(x,pos.D.x+6,toD); y=lerp(y,pos.D.y+8,toD);
-  const click1=t>2.0&&t<2.2?0.88:1, click2=t>4.3&&t<4.5?0.88:1;
-  cur.style.transform=`translate(${x}px,${y}px) scale(${click1*click2})`;
-  cur.style.opacity=seg(t,1.3,1.6)*(1-seg(t,5.9,6.3))*endOut;
+  const c1=(t>4.4&&t<4.65)?0.88:1, c2=(t>8.3&&t<8.55)?0.88:1;
+  cur.style.transform=`translate(${x}px,${y}px) scale(${c1*c2})`;
+  cur.style.opacity=seg(t,3.4,3.7)*(1-seg(t,10.2,10.6))*endOut;
   // cierre
-  const e=seg(t,7.8,8.4); $('end').style.opacity=e; $('end').style.transform=`translateY(${(1-e)*18}px)`;
-  const pulse=t>8.8?1+0.022*Math.sin((t-8.8)*5):1; $('cta').style.transform=`scale(${pulse})`;
-  $('brand').style.opacity=1-seg(t,7.6,7.9);
+  const e=seg(t,15.0,15.7); $('end').style.opacity=e; $('end').style.transform=`translateY(${(1-e)*18}px)`;
+  const pulse=t>16.3?1+0.022*Math.sin((t-16.3)*5):1; $('cta').style.transform=`scale(${pulse})`;
+  $('brand').style.opacity=1-seg(t,14.7,15.0);
 }
 window.render=render; render(0);
 </script></body></html>
