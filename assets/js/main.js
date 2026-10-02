@@ -112,6 +112,30 @@
     });
   }
 
+  /* Video de "Cómo funciona": se reproduce al verlo y resalta el paso en curso */
+  var vid = document.getElementById('pasos-video');
+  if (vid) {
+    var lista = document.getElementById('pasos-lista');
+    var pasos = Array.prototype.slice.call(lista.querySelectorAll('.paso'));
+    var cortes = JSON.parse(lista.getAttribute('data-cortes'));
+    vid.muted = true;
+    var marcar = function () {
+      var t = vid.currentTime, idx = 0;
+      cortes.forEach(function (c, k) { if (t >= c - 0.05) idx = k; });
+      pasos.forEach(function (p, k) { p.classList.toggle('on', k === idx); });
+    };
+    vid.addEventListener('timeupdate', marcar);
+    vid.addEventListener('pause', function () { if (vid.currentTime === 0) pasos.forEach(function (p) { p.classList.remove('on'); }); });
+    if (!reduce && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { var pr = vid.play(); if (pr && pr.catch) pr.catch(function () {}); }
+          else vid.pause();
+        });
+      }, { threshold: 0.35 }).observe(vid);
+    }
+  }
+
   /* Demo Google Sheets -> menú */
   var demo = document.getElementById('sheet-demo');
   if (!demo) return;
