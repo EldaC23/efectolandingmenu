@@ -69,7 +69,9 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await tap(`label.mod-chip:has(input[data-product="p1"][data-mod="oregano"])`, 450, 900);
   marks.paso3 = await now();
   await tap(`button[onclick="openModal()"]`, 750, 900);
-  await tap(`#customerName`, 650, 250); await page.keyboard.type('María', { delay: 150 }); await sleep(900);
+  await tap(`#customerName`, 650, 250); await page.keyboard.type('María', { delay: 150 }); await sleep(700);
+  await tap(`#deliveryZone`, 650, 300);                // zona de envío: suma el costo y muestra subtotal, envío y total en $ y Bs
+  await page.selectOption('#deliveryZone', 'Zona Norte'); await sleep(1500);
   marks.paso4 = await now();
   await tap(`button[onclick="sendToWhatsApp()"]`, 700, 2400);
   const fin = await now(); await sleep(300);
